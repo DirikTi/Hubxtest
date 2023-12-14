@@ -7,7 +7,9 @@ import DiagnoseScreen from '../screens/DiagnoseTab/DiagnoseScreen';
 import ScannerScreen from '../screens/ScannerTab/ScannerScreen';
 import GardenScreen from '../screens/GardenTab/GardenScreen';
 import ProfielScreen from '../screens/ProfileTab/ProfileScreen';
-import { DiagnoseTabIcon, GardenTabIcon, HomeTabIcon, ProfileTabIcon } from '../components/Icons';
+import { DiagnoseTabIcon, GardenTabIcon, HomeTabIcon, ProfileTabIcon, ScannerTabIcon } from '../components/Icons';
+import { Text, View } from 'react-native';
+import { MAIN_COLOR } from '../utils/utils';
 
 export type TabParamList = {
     HomeTab: undefined;
@@ -26,42 +28,64 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 export default function TabNavigation() {
     return (
-        <Tab.Navigator screenOptions={{ 
-            headerShown: false
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: MAIN_COLOR,
+            tabBarInactiveTintColor: "#BDBDBD",
+            tabBarLabel: ({ children, focused, color, position }) => (
+                <Text style={{ fontSize: focused ? 12 : 10, color, fontWeight: "400", marginBottom: 5 }}>{children}</Text>
+            ),
+            tabBarBackground: () => (
+                <View style={{ backgroundColor: "#FFFFFFEB" }}>
+
+                </View>
+            )
          }}>
             <Tab.Screen name="HomeTab" component={HomeScreen} 
                 options={{
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ color, size }) => (
                         <HomeTabIcon color={color} size={size} />
-                    )
+                    ),
+                    tabBarLabel: "Home"
                 }}
             />
             <Tab.Screen name="DiagnoseTab" component={DiagnoseScreen}
                 options={{
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ color, size }) => (
                         <DiagnoseTabIcon color={color} size={size} />
-                    )
+                    ),
+                    tabBarLabel: "Diagnose"
                 }}
             />
             <Tab.Screen name="ScannerTab" component={ScannerScreen}
                 options={{
-                    tabBarIcon: ({ focused, color, size }) => (
-                        <HomeTabIcon color={color} size={size} />
-                    )
+                    tabBarIcon: ({ color, size }) => (
+                        <View style={{ 
+                            alignItems: "center", justifyContent: "center", 
+                            backgroundColor: MAIN_COLOR, borderColor: "#FFFFFF3D", 
+                            width: 64, height: 64,
+                            borderRadius: 100, borderWidth: 4, bottom: 15
+                        }}>
+                            <ScannerTabIcon color={"#FFF"} size={25} />
+                        </View>
+                    ),
+                    tabBarLabel: ""
                 }}
             />
             <Tab.Screen name="GardenTab" component={GardenScreen} 
                 options={{
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ color, size }) => (
                         <GardenTabIcon color={color} size={size} />
-                    )
+                    ),
+                    tabBarLabel: "My Garden"
                 }}
             />
             <Tab.Screen name="ProfileTab" component={ProfielScreen}
                 options={{
-                    tabBarIcon: ({ focused, color, size }) => (
+                    tabBarIcon: ({ color, size }) => (
                         <ProfileTabIcon color={color} size={size} />
-                    )
+                    ),
+                    tabBarLabel: "Profile"
                 }}
             />
         </Tab.Navigator>

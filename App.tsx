@@ -19,7 +19,7 @@ export default function App() {
     return (
         <NavigationContainer>
             <SafeAreaView style={{ flex: 1 }}>
-                <RootStack.Navigator>
+                <RootStack.Navigator screenOptions={{ headerShown: false }}>
                     <RootStack.Screen name="Tab" component={TabNavigation} />
                     <RootStack.Group>
 
