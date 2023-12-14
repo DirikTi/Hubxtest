@@ -1,10 +1,10 @@
 import { type TabScreenProps } from "../../navigations/TabNavigation";
 import { Text, View } from "react-native";
 
-export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
+export default function ProfielScreen({ navigation, route }: TabScreenProps<"ProfileTab">) {
     return (
         <View>
-            <Text>Home Screen</Text>
+            <Text>Profile Screen</Text>
         </View>
     )
 }
