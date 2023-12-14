@@ -1,24 +1,26 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, type NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackScreenProps } from '@react-navigation/stack';
+import { type StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
+import TabNavigation, { TabParamList, TabScreenProps } from './src/navigations/TabNavigation';
 
 export type RootStackParamList = {
-    Tab: undefined;
+    Tab: NavigatorScreenParams<TabParamList>;
+    Intro: undefined
 };
   
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-function App(): React.JSX.Element {
+export default function App() {
 
     return (
         <NavigationContainer>
             <SafeAreaView>
                 <RootStack.Navigator>
-                    
+                    <RootStack.Screen name="Tab" component={TabNavigation} />
                     <RootStack.Group>
 
                     </RootStack.Group>
@@ -27,5 +29,3 @@ function App(): React.JSX.Element {
         </NavigationContainer>
     );
 }
-
-export default App;
