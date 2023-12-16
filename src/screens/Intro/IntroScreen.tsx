@@ -1,34 +1,87 @@
-import { ImageBackground, Text, View, SafeAreaView, Dimensions, Image } from "react-native";
+import { ImageBackground, Text, View, SafeAreaView, Dimensions, Image, StyleSheet, StatusBar } from "react-native";
 import { Button } from "../../components/Buttons";
+import { useTheme } from "@react-navigation/native";
+import Swiper from 'react-native-swiper'
+import { useRef } from "react";
+import { type RootStackScreenProps } from "../../../App";
+import * as Animatable from 'react-native-animatable';
 
-export default function IntroScreen() {
+export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro">) {
     const { width, height } = Dimensions.get("screen");
+    const { colors } = useTheme();
+    const swiperRef = useRef(null);
 
-    function handle() {
-
-    }
-
-    return (
+    const SlideOneScreen = () => (
         <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1 }}>
-            <SafeAreaView style={{ flex: 1 }} >
-                <View style={{ marginLeft: 24, marginTop: 12, maxWidth: width * 0.8 }}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Text style={{ ...styles.title, fontWeight: "400" }}>Welcome To </Text>
-                        <Text style={{ ...styles.title, fontWeight: "700" }}>PlantApp</Text>
+            <View style={{ marginVertical: 12, marginLeft: 24 }}>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>Take a photo to</Text>
+                    <View>
+                        <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Bold" }}> identify </Text>
                     </View>
-                    <Text style={{ fontSize: 16, color: TEXT_COLOR + "B2", lineHeight: 22, marginTop: 7 }}>Identify more than 3000+ plants and 88% accuracy.</Text>
                 </View>
+                <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>the plant!</Text>
+            </View>
 
-                <Image style={{ width: width * 0.75, height: height * 0.6, alignSelf: "center" }}
-                    source={require("../../assets/images/start_screen_image.png")}
-                />
-
-                <View style={{ alignSelf: "center", width: width - 48, marginBottom: 10 }}>
-                    <Button text="Get Started" onPress={handle} style={{ marginBottom: 15 }} />
-                    
-                    
-                </View>
-            </SafeAreaView>
+            <Image style={{ width: width * 0.75, height: height * 0.85, alignSelf: "center" }}
+            source={require("../../assets/images/intro_content.png")} />
         </ImageBackground>
     )
+
+    return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }} >
+            <StatusBar translucent={false} />
+            <Swiper style={{ }} loop={false} ref={swiperRef} renderPagination={(index, total, swiper) => (
+                <View style={{ alignItems: "center" }}>
+                    <Button text="Continue" onPress={() => {
+                        if(index == 1) {
+                            
+                            return null;
+                        }
+                        swiper.scrollBy(index + 1, true)
+                    }} style={{ width: width - 48 }} />
+                    
+                    <View style={{ flexDirection: "row", alignItems :"center", marginTop: 32.5, marginBottom: 12.5 }}>
+                        <Animatable.View animation={index == 0 ? "tada" : undefined} 
+                            style={index == 0 ? styles.activeDot : styles.passiveDot } />
+                        <Animatable.View animation={index == 1 ? "tada" : undefined} 
+                            style={index == 1 ? styles.activeDot : styles.passiveDot } />
+                        <Animatable.View animation={index == 2 ? "tada" : undefined} 
+                            style={index == 2 ? styles.activeDot : styles.passiveDot } />
+                    </View>
+                </View>
+            )}>
+                <SlideOneScreen />
+                <View style={{ backgroundColor: "transparent" }}>
+                    <Text>Beautiful</Text>
+                </View>
+                <View style={{ backgroundColor: "transparent" }}>
+                    <Text>And simple</Text>
+                </View>
+            </Swiper>
+            
+        </SafeAreaView>
+    )
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 28,
+        lineHeight: 33.18,
+        letterSpacing: -1
+    },
+    passiveDot: {
+        width: 6,
+        height: 6,
+        backgroundColor: "#13231B40",
+        borderRadius: 50,
+        marginHorizontal: 4 // equal to 8 => 4 + 4
+    },
+    activeDot: {
+        width: 10,
+        height: 10,
+        backgroundColor: "#13231B",
+        borderRadius: 50,
+        marginHorizontal: 4
+    }
+})

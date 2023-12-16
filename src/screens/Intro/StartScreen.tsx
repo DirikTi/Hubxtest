@@ -15,7 +15,7 @@ export default function StartScreen({ navigation, route }: RootStackScreenProps<
         <ImageBackground source={require("../../assets/images/start_screen.png")} style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }} >
                 
-                <View style={{ marginLeft: 24, marginTop: 12, maxWidth: width * 0.8 }}>
+                <View style={{ marginLeft: 24, marginTop: 12, marginBottom: 24, maxWidth: width * 0.8 }}>
                     <View style={{ flexDirection: "row" }}>
                         <Text style={{ ...styles.title, color: colors.text, fontWeight: "400" }}>Welcome To </Text>
                         <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Medium" }}>PlantApp</Text>

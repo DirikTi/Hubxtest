@@ -31,7 +31,7 @@ export default function App() {
                 barStyle={'dark-content'}
                 translucent={true}
             />
-            <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
                 <RootStack.Screen name="Start" component={StartScreen} />
                 <RootStack.Screen name="Tab" component={TabNavigation} />
                 <RootStack.Screen name="Intro" component={IntroScreen} />
