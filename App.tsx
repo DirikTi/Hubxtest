@@ -2,12 +2,17 @@ import { NavigationContainer, type NavigatorScreenParams } from '@react-navigati
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { type StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
-import TabNavigation, { TabParamList, TabScreenProps } from './src/navigations/TabNavigation';
+import { SafeAreaView, StatusBar } from 'react-native';
+
+// Screens
+import TabNavigation, { type TabParamList } from './src/navigations/TabNavigation';
+import IntroScreen from './src/screens/Intro/IntroScreen';
+import StartScreen from './src/screens/Intro/StartScreen';
 
 export type RootStackParamList = {
     Tab: NavigatorScreenParams<TabParamList>;
-    Intro: undefined
+    Intro: undefined;
+    Start: undefined;
 };
   
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
@@ -18,14 +23,20 @@ export default function App() {
 
     return (
         <NavigationContainer>
-            <SafeAreaView style={{ flex: 1 }}>
-                <RootStack.Navigator screenOptions={{ headerShown: false }}>
-                    <RootStack.Screen name="Tab" component={TabNavigation} />
-                    <RootStack.Group>
-
-                    </RootStack.Group>
-                </RootStack.Navigator>
-            </SafeAreaView>
+            <StatusBar
+                animated={true}
+                backgroundColor="transparent"
+                barStyle={'dark-content'}
+                translucent={true}
+            />
+            <RootStack.Navigator screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Start" component={StartScreen} />
+                <RootStack.Screen name="Tab" component={TabNavigation} />
+                <RootStack.Screen name="Intro" component={IntroScreen} />
+                <RootStack.Group>
+                    
+                </RootStack.Group>
+            </RootStack.Navigator>
         </NavigationContainer>
     );
 }
