@@ -1,8 +1,9 @@
+import React from 'react';
 import { NavigationContainer, type NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { type StackScreenProps } from '@react-navigation/stack';
-import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { StatusBar, useColorScheme } from 'react-native';
+import { darkTheme, lightTheme } from './src/utils/theme';
 
 // Screens
 import TabNavigation, { type TabParamList } from './src/navigations/TabNavigation';
@@ -20,9 +21,10 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScre
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+    const scheme = useColorScheme();
 
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={scheme == "dark" ? darkTheme : lightTheme}>
             <StatusBar
                 animated={true}
                 backgroundColor="transparent"

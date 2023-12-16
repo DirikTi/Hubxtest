@@ -1,13 +1,14 @@
-import { ImageBackground, StatusBar, Text, View, SafeAreaView, Dimensions, StyleSheet, Image } from "react-native";
-import { TEXT_COLOR } from "../../utils/utils";
+import { ImageBackground, Text, View, SafeAreaView, Dimensions, StyleSheet, Image } from "react-native";
 import { Button } from "../../components/Buttons";
+import type { RootStackScreenProps } from "../../../App";
+import { useTheme } from "@react-navigation/native";
 
-export default function StartScreen() {
-
+export default function StartScreen({ navigation, route }: RootStackScreenProps<"Start">) {
     const { width, height } = Dimensions.get("screen");
+    const { colors } = useTheme();
 
     function handle() {
-
+        navigation.navigate("Intro");
     }
 
     return (
@@ -16,10 +17,10 @@ export default function StartScreen() {
                 
                 <View style={{ marginLeft: 24, marginTop: 12, maxWidth: width * 0.8 }}>
                     <View style={{ flexDirection: "row" }}>
-                        <Text style={{ ...styles.title, fontWeight: "400" }}>Welcome To </Text>
-                        <Text style={{ ...styles.title, fontWeight: "700" }}>PlantApp</Text>
+                        <Text style={{ ...styles.title, color: colors.text, fontWeight: "400" }}>Welcome To </Text>
+                        <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Medium" }}>PlantApp</Text>
                     </View>
-                    <Text style={{ fontSize: 16, color: TEXT_COLOR + "B2", lineHeight: 22, marginTop: 7 }}>Identify more than 3000+ plants and 88% accuracy.</Text>
+                    <Text style={{ fontSize: 16, color: colors.text + "B2", lineHeight: 22, marginTop: 7 }}>Identify more than 3000+ plants and 88% accuracy.</Text>
                 </View>
 
                 <Image style={{ width: width * 0.75, height: height * 0.6, alignSelf: "center" }}
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontFamily: "Rubik-Regular",
-        color: TEXT_COLOR,
         lineHeight: 33.18
     },
     subText: {

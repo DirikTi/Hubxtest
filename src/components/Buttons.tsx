@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import type { TextStyle, ViewStyle } from "react-native";
-import { MAIN_COLOR } from "../utils/utils";
+import { useTheme } from "@react-navigation/native";
 
 type ButtonProps = {
     text: string;
@@ -10,8 +10,10 @@ type ButtonProps = {
 }
 
 export const Button = ({ text, onPress, style={}, styleText={} }: ButtonProps) => {
+    const { colors } = useTheme();
+
     return (
-        <TouchableOpacity onPress={onPress} style={{ ...styles.container, ...style }}>
+        <TouchableOpacity onPress={onPress} style={{ ...styles.container, backgroundColor: colors.primary, ...style }}>
             <Text style={{ ...styles.text, ...styleText }}>{text}</Text>
         </TouchableOpacity>
     )
@@ -20,7 +22,6 @@ export const Button = ({ text, onPress, style={}, styleText={} }: ButtonProps) =
 const styles = StyleSheet.create({
     container: {
         borderRadius: 12,
-        backgroundColor: MAIN_COLOR,
         paddingTop: 18,
         paddingRight: 16,
         paddingBottom: 18,

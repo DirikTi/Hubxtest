@@ -9,7 +9,7 @@ import GardenScreen from '../screens/GardenTab/GardenScreen';
 import ProfielScreen from '../screens/ProfileTab/ProfileScreen';
 import { DiagnoseTabIcon, GardenTabIcon, HomeTabIcon, ProfileTabIcon, ScannerTabIcon } from '../components/Icons';
 import { Text, View } from 'react-native';
-import { MAIN_COLOR } from '../utils/utils';
+import { useTheme } from "@react-navigation/native";
 
 export type TabParamList = {
     HomeTab: undefined;
@@ -27,19 +27,18 @@ export type TabScreenProps<T extends keyof TabParamList> = CompositeScreenProps<
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export default function TabNavigation() {
+    const { colors } = useTheme();
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: MAIN_COLOR,
-            tabBarInactiveTintColor: "#BDBDBD",
+            tabBarActiveTintColor: colors.tabActive,
+            tabBarInactiveTintColor: colors.tabInActive,
             tabBarLabel: ({ children, focused, color, position }) => (
                 <Text style={{ fontSize: focused ? 12 : 10, color, fontWeight: "400", marginBottom: 5 }}>{children}</Text>
             ),
-            tabBarBackground: () => (
-                <View style={{ backgroundColor: "#FFFFFFEB" }}>
-
-                </View>
-            )
+            tabBarStyle: {
+                backgroundColor: colors.tab
+            }
          }}>
             <Tab.Screen name="HomeTab" component={HomeScreen} 
                 options={{
@@ -62,7 +61,7 @@ export default function TabNavigation() {
                     tabBarIcon: ({ color, size }) => (
                         <View style={{ 
                             alignItems: "center", justifyContent: "center", 
-                            backgroundColor: MAIN_COLOR, borderColor: "#FFFFFF3D", 
+                            backgroundColor: colors.primary, borderColor: "#FFFFFF3D", 
                             width: 64, height: 64,
                             borderRadius: 100, borderWidth: 4, bottom: 15
                         }}>
