@@ -57,7 +57,7 @@ export const PremiumButton = () => {
             alignItems: "center", justifyContent: "space-between", paddingRight: 12
         }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <EnvelopePremiumIcon />
+                <EnvelopePremiumIcon style={{ marginTop: 5 }} />
                 <View>
                     <PremiumText />
                     <PremiumSubText />

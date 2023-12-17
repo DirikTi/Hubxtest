@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, type ViewStyle } from 'react-native';
 import Svg, { ClipPath, Defs, G, LinearGradient, Path, Stop } from 'react-native-svg';
 
 type IconProps = {
-    color?: string;
-    size?: number;
+    color?: string
+    size?: number
+    style?: ViewStyle
 };
 
 export const HomeTabIcon = ({ color, size=24 }: IconProps) => {
@@ -101,9 +102,9 @@ export const ScannerIcon = ({ color, size=24 }: IconProps) => {
     )
 }
 
-export const EnvelopePremiumIcon = ({ color, size=24 }: IconProps) => {
+export const EnvelopePremiumIcon = ({ style={}, color, size=24 }: IconProps) => {
     return (
-        <View style={{ }}>
+        <View style={{ ...style }}>
             <View style={{ position: "absolute", width: 15, height: 15, borderRadius: 100, backgroundColor: "#E82C13E5",
         alignItems: "center", justifyContent: "center", zIndex: 99, left: 32, top: 2 }}>
                 <Text style={{ color: "#fff", fontSize: 10, fontFamily: "Rubik-Regular" }}>1</Text>
