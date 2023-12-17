@@ -2,6 +2,9 @@ import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-nativ
 import type { TextStyle, ViewStyle } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import * as Animatable from 'react-native-animatable';
+import { EnvelopePremiumIcon } from "./Icons";
+import { PremiumSubText, PremiumText } from "./Texts";
+import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
 
 type ButtonProps = {
     text: string;
@@ -38,6 +41,24 @@ export const CheckButton = ({ isCheck, onPress }: CheckButtonProps) => {
                 ) : null}
             </Animatable.View>
         </Pressable>
+    )
+}
+
+export const PremiumButton = () => {
+    return (
+        <View style={{ 
+            margin: 24, backgroundColor: "#24201A",borderRadius: 12, paddingVertical: 13, paddingLeft: 20, flexDirection: "row",
+            alignItems: "center", justifyContent: "space-between", paddingRight: 12
+        }}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <EnvelopePremiumIcon />
+                <View>
+                    <PremiumText />
+                    <PremiumSubText />
+                </View>
+            </View>
+            <FontAwesome6Icon name="chevron-right" color="#D0B070" size={18} />
+        </View>
     )
 }
 
