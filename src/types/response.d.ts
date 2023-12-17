@@ -2,7 +2,7 @@ export type QuestionResponseType = {
     id: number
     title: string
     subtitle: string
-    image_url: string
+    image_uri: string
     uri: string
     order: number
 }

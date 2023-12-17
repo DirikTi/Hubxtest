@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { TextStyle, ViewStyle } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import * as Animatable from 'react-native-animatable';
 import { EnvelopePremiumIcon } from "./Icons";
 import { PremiumSubText, PremiumText } from "./Texts";
@@ -45,8 +45,14 @@ export const CheckButton = ({ isCheck, onPress }: CheckButtonProps) => {
 }
 
 export const PremiumButton = () => {
+    const navigation = useNavigation();
+    function onPress() {
+        // @ts-ignore
+        navigation.navigate<any>("Paywall");
+    }
+
     return (
-        <View style={{ 
+        <Pressable onPress={onPress} style={{ 
             margin: 24, backgroundColor: "#24201A",borderRadius: 12, paddingVertical: 13, paddingLeft: 20, flexDirection: "row",
             alignItems: "center", justifyContent: "space-between", paddingRight: 12
         }}>
@@ -58,7 +64,7 @@ export const PremiumButton = () => {
                 </View>
             </View>
             <FontAwesome6Icon name="chevron-right" color="#D0B070" size={18} />
-        </View>
+        </Pressable>
     )
 }
 

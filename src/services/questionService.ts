@@ -1,4 +1,3 @@
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootStateType } from '../store/store';
 import type { QuestionResponseType } from '../types/response';

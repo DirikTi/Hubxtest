@@ -5,8 +5,9 @@ import LinearGradient from "react-native-linear-gradient";
 import { useTheme } from "@react-navigation/native";
 import { Button, CheckButton } from "../components/Buttons";
 import { useState } from "react";
+import { RootStackScreenProps } from "../../App";
 
-export default function PaywallScreen() {
+export default function PaywallScreen({ navigation }: RootStackScreenProps<"Paywall">) {
     const { width } = Dimensions.get("screen");
     const { colors } = useTheme();
 
@@ -45,7 +46,7 @@ export default function PaywallScreen() {
             />
             <ImageBackground source={require("../assets/images/paywall_background.png")}
             style={{ height: 490, justifyContent: "space-between"  }}>
-                <Pressable style={{ 
+                <Pressable onPress={() => navigation.goBack()} style={{ 
                     marginTop: 55, marginRight: 16, borderRadius: 50, alignSelf: "flex-end", backgroundColor: "#00000066",
                     width: 24, height: 24, justifyContent: "center", alignItems: "center"
                 }}>

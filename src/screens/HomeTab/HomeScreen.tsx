@@ -1,5 +1,5 @@
 import { type TabScreenProps } from "../../navigations/TabNavigation";
-import { Dimensions, ImageBackground, Text, View } from "react-native";
+import { Dimensions, FlatList, ImageBackground, Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { SearchTextInput } from "../../components/Inputs";
@@ -7,18 +7,17 @@ import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PremiumButton } from "../../components/Buttons";
 import { useGetQuestionsQuery } from "../../services/questionService";
+import { QuestionItems } from "../../components/Items";
 
 export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
     const { width } = Dimensions.get("screen");
-    const { data: questions, isSuccess } = useGetQuestionsQuery();
+    const { data: questions, isSuccess, isError: questionError } = useGetQuestionsQuery();
 
     const { colors } = useTheme();
     const insets = useSafeAreaInsets();
 
     const [search, setSearch] = useState("");
-
-    console.log("questions", questions);
-
+console.log(questions);
     return (
         <ScrollView style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
         
@@ -36,14 +35,27 @@ export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTa
                 value={search} onChangeText={setSearch} placeholder="Search for plants" />
             </ImageBackground>
         
-            <PremiumButton />
+            <PremiumButton  />
 
-            <View style={{ paddingHorizontal: 24 }}>
+            <View style={{ display: questionError ? "none" : "flex" }}>
                 <Text style={{ 
-                    color: colors.text, fontFamily: "Rubik-Regular", lineHeight: 20, letterSpacing: -0.24, fontSize: 15,
-            marginBottom: 16  }}>Get Started</Text>
+                    color: colors.text, fontFamily: "Rubik-SemiBold", lineHeight: 20, letterSpacing: -0.24, fontSize: 15,
+            marginBottom: 16, marginLeft: 24 }}>Get Started</Text>
+                <FlatList 
+                    data={questions}
+                    keyExtractor={(item, index) => index.toString()}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ marginBottom: 24, paddingLeft: 24 }}
+                    renderItem={({ item, index }) => (
+                        <QuestionItems {...item} />
+                    )}
+                />
             </View>
 
+            <View style={{ }}>
+
+            </View>
 
             
         </ScrollView>
