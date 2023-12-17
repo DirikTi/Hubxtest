@@ -34,8 +34,10 @@ export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTa
         
             <PremiumButton />
 
-            <View>
-                <Text>asfddsaoıjdfosa</Text>
+            <View style={{ paddingHorizontal: 24 }}>
+                <Text style={{ 
+                    color: colors.text, fontFamily: "Rubik-Regular", lineHeight: 20, letterSpacing: -0.24, fontSize: 15,
+            marginBottom: 16  }}>Get Started</Text>
             </View>
             
         </ScrollView>
