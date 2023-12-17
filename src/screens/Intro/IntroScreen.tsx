@@ -32,7 +32,7 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
     )
 
     const SlideTwoScreen = () => (
-        <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1 }}>
+        <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1, paddingTop: insets.top }}>
             <View style={{ marginVertical: 12, marginLeft: 24, flexDirection: "row" }}>
                 <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>Get plant</Text>
                 <View>
