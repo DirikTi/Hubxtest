@@ -7,7 +7,7 @@ export const lightTheme = {
         ...DefaultTheme.colors,
         primary: "#28AF6E",
         text: "#13231B",
-        tab: "#FFFFFFEB",
+        tab: "#FFFFFF",
         tabInActive: "#BDBDBD",
         tabActive: "#28AF6E",
         background: "#28AF6E",

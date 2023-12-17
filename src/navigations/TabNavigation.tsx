@@ -37,7 +37,9 @@ export default function TabNavigation() {
                 <Text style={{ fontSize: focused ? 12 : 10, color, fontWeight: "400", marginBottom: 5 }}>{children}</Text>
             ),
             tabBarStyle: {
-                backgroundColor: colors.tab
+                backgroundColor: colors.tab,
+                borderTopWidth: 4,
+                borderTopColor: "#FFFFFF3D"
             }
          }}>
             <Tab.Screen name="HomeTab" component={HomeScreen} 
@@ -53,7 +55,7 @@ export default function TabNavigation() {
                     tabBarIcon: ({ color, size }) => (
                         <DiagnoseTabIcon color={color} size={size} />
                     ),
-                    tabBarLabel: "Diagnose"
+                    tabBarLabel: "Diagnose",
                 }}
             />
             <Tab.Screen name="ScannerTab" component={ScannerScreen}
