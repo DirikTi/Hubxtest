@@ -37,10 +37,10 @@ export default function App() {
                     translucent={true}
                 />
                 <RootStack.Navigator  screenOptions={{ headerShown: false }}>
+                    <RootStack.Screen name="Start" component={StartScreen} />
                     <RootStack.Screen name="Intro" component={IntroScreen} />
                     <RootStack.Screen name="Tab" component={TabNavigation} />
                     <RootStack.Screen name="Paywall" component={PaywallScreen} />
-                    <RootStack.Screen name="Start" component={StartScreen} />
                     <RootStack.Group>
                         
                     </RootStack.Group>

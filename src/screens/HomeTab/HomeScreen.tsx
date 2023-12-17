@@ -10,17 +10,22 @@ import { useGetQuestionsQuery } from "../../services/questionService";
 import { CategoryItem, QuestionItem } from "../../components/Items";
 import { FlashList } from "@shopify/flash-list";
 import { useGetCategoriesQuery } from "../../services/categoryService";
+import { ScreenProgress } from "../../components/Progress";
 
 export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
     const { width } = Dimensions.get("screen");
-    const { data: questions, isSuccess, isError: questionError } = useGetQuestionsQuery();
-    const { data: categories, isLoading: categoriesLoading, isError: categoriesError  } = useGetCategoriesQuery(1);
-    
     const { colors } = useTheme();
     const insets = useSafeAreaInsets();
 
+    const { data: questions, isLoading: questionLoading, isError: questionError } = useGetQuestionsQuery();
+    const { data: categories, isLoading: categoriesLoading, isError: categoriesError  } = useGetCategoriesQuery(1);
+    
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
+
+    if(questionLoading || categoriesLoading) {
+        return <ScreenProgress />
+    }
 
     return (
         <ScrollView style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
