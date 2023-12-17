@@ -1,9 +1,9 @@
-import { Dimensions, FlatList, ImageBackground, Pressable, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList, ImageBackground, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { ScannerIcon } from "../components/Icons";
 import LinearGradient from "react-native-linear-gradient";
 import { useTheme } from "@react-navigation/native";
-import { CheckButton } from "../components/Buttons";
+import { Button, CheckButton } from "../components/Buttons";
 import { useState } from "react";
 
 export default function PaywallScreen() {
@@ -17,6 +17,10 @@ export default function PaywallScreen() {
         { title: "Faste", text: "Process", Icon: (<ScannerIcon size={18} color="#fff" />) },
         { title: "Detailed", text: "Plant Care", Icon: (<ScannerIcon size={18} color="#fff" />) }
     ];
+
+    function handleTryPremium() {
+
+    }
 
     const SliderItem = ({ title, text, Icon }: any) => (
         <View style={{ backgroundColor: "#FFFFFF14", borderRadius: 14, width: width * 0.5, marginRight: 8 }}>
@@ -32,7 +36,7 @@ export default function PaywallScreen() {
     );
 
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: "#101E17" }}>
+        <ScrollView style={{ flex: 1, backgroundColor: "#101E17" }} showsVerticalScrollIndicator={false}>
             <StatusBar
                 animated={true}
                 backgroundColor="transparent"
@@ -69,7 +73,7 @@ export default function PaywallScreen() {
                 </View>
             </ImageBackground>
 
-            <View style={{ paddingHorizontal: 24, marginTop: 24 }}>
+            <SafeAreaView style={{ marginHorizontal: 24, marginTop: 24 }}>
                 
                 <Pressable onPress={() => setIsMotnhly(true)} style={{ 
                     borderWidth: 0.5, borderColor: "#FFFFFF4D", borderRadius: 14,
@@ -109,7 +113,16 @@ export default function PaywallScreen() {
                     </LinearGradient>
                 </Pressable>
 
-            </View>
+                <Button text="Try free for 3 days" onPress={handleTryPremium} style={{ marginTop: 26, marginBottom: 8 }} />
+                <Text style={{ textAlign: "center", fontSize: 9, lineHeight: 11.88, color: "#FFFFFF85", marginBottom: 10, fontFamily: "Rubik-Regular" }}>
+                    After the 3-day free trial period you’ll be charged ₺274.99 per year unless you cancel before the trial expires. Yearly Subscription is Auto-Renewable
+                </Text>
+
+                <Text style={{ fontFamily: "Rubik-Regular", fontSize: 11, color: "#FFFFFF80", textAlign: "center", lineHeight: 13.04  }}> 
+                    Terms • Privacy • Restore
+                </Text>
+
+            </SafeAreaView>
             
         </ScrollView>
     )
@@ -119,5 +132,5 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 27, 
         color: "#fff",
-    }
+    },
 })
