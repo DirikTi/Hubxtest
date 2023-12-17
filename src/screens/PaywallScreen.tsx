@@ -114,14 +114,16 @@ export default function PaywallScreen({ navigation }: RootStackScreenProps<"Payw
                     </LinearGradient>
                 </Pressable>
 
-                <Button text="Try free for 3 days" onPress={handleTryPremium} style={{ marginTop: 26, marginBottom: 8 }} />
-                <Text style={{ textAlign: "center", fontSize: 9, lineHeight: 11.88, color: "#FFFFFF85", marginBottom: 10, fontFamily: "Rubik-Regular" }}>
-                    After the 3-day free trial period you’ll be charged ₺274.99 per year unless you cancel before the trial expires. Yearly Subscription is Auto-Renewable
-                </Text>
+                <View style={{ marginTop: 26, bottom: 0 }}>
+                    <Button text="Try free for 3 days" onPress={handleTryPremium} style={{ marginBottom: 8 }} />
+                    <Text style={{ textAlign: "center", fontSize: 9, lineHeight: 11.88, color: "#FFFFFF85", marginBottom: 10, fontFamily: "Rubik-Regular" }}>
+                        After the 3-day free trial period you'll be charged ₺274.99 per year unless you cancel before the trial expires. Yearly Subscription is Auto-Renewable
+                    </Text>
 
-                <Text style={{ fontFamily: "Rubik-Regular", fontSize: 11, color: "#FFFFFF80", textAlign: "center", lineHeight: 13.04  }}> 
-                    Terms • Privacy • Restore
-                </Text>
+                    <Text style={{ fontFamily: "Rubik-Regular", fontSize: 11, color: "#FFFFFF80", textAlign: "center", lineHeight: 13.04  }}> 
+                        Terms • Privacy • Restore
+                    </Text>
+                </View>
 
             </SafeAreaView>
             

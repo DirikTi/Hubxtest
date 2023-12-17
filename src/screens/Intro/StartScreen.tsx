@@ -1,14 +1,44 @@
 import { ImageBackground, Text, View, SafeAreaView, Dimensions, StyleSheet, Image } from "react-native";
 import { Button } from "../../components/Buttons";
 import type { RootStackScreenProps } from "../../../App";
-import { useTheme } from "@react-navigation/native";
+import { CommonActions, useTheme } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { getIntroShown } from "../../utils/utils";
+import { ScreenProgress } from "../../components/Progress";
 
 export default function StartScreen({ navigation, route }: RootStackScreenProps<"Start">) {
     const { width, height } = Dimensions.get("screen");
     const { colors } = useTheme();
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const checkIntroStatus = async () => {
+            const introShown = await getIntroShown();
+            
+            if(introShown) {
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [
+                            { name: "Tab" }
+                        ]
+                    })
+                );
+            } else {
+                setLoading(false);
+            }
+        };
+
+        checkIntroStatus();
+    }, []);
+
     function handle() {
         navigation.navigate("Intro");
+    }
+
+    if(loading) {
+        return <ScreenProgress />
     }
 
     return (

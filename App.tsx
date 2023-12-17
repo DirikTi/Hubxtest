@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer, type NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { type StackScreenProps } from '@react-navigation/stack';
@@ -19,14 +19,14 @@ export type RootStackParamList = {
     Start: undefined;
     Paywall: undefined;
 };
-  
+
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
     const scheme = useColorScheme();
-
+    
     return (
         <Provider store={store}>
             <NavigationContainer theme={scheme == "dark" ? darkTheme : lightTheme}>
@@ -36,13 +36,13 @@ export default function App() {
                     barStyle={'dark-content'}
                     translucent={true}
                 />
-                <RootStack.Navigator  screenOptions={{ headerShown: false }}>
+                <RootStack.Navigator initialRouteName={"Start"} screenOptions={{ headerShown: false }}>
                     <RootStack.Screen name="Start" component={StartScreen} />
                     <RootStack.Screen name="Intro" component={IntroScreen} />
-                    <RootStack.Screen name="Tab" component={TabNavigation} />
                     <RootStack.Screen name="Paywall" component={PaywallScreen} />
+                    <RootStack.Screen name="Tab" component={TabNavigation} />
                     <RootStack.Group>
-                        
+
                     </RootStack.Group>
                 </RootStack.Navigator>
             </NavigationContainer>
