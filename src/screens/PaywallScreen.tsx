@@ -103,7 +103,7 @@ export default function PaywallScreen() {
                     }}>
                         <View style={{ position: "absolute", top: 0, right: -2,
                             backgroundColor: colors.primary, borderBottomLeftRadius: 20, borderTopRightRadius: 14 }} >
-                            <Text style={{ color: "#fff", fontSize: 12, fontFamily: "Rubik-Regular", paddingVertical: 4.7, marginHorizontal: 12 }}>Save 50%</Text>
+                            <Text style={{ color: "#fff", fontSize: 12, fontFamily: "Rubik-SemiBold", paddingVertical: 4.7, marginHorizontal: 12 }}>Save 50%</Text>
                         </View>
                         <CheckButton isCheck={!isMonthly} onPress={() => null} />
                         <View>
