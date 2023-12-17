@@ -2,6 +2,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootStateType } from '../store/store';
 import type { CategoriesResponseType } from '../types/response';
 
+type RespnseType<T> = {
+    data: T,
+    meta: {
+        pagination: {
+            page: number,
+            pageSize: number,
+            pageCount: number,
+            total: number
+        }
+    }
+}
+
 export const categoriesApi = createApi({
     reducerPath: 'categories',
     baseQuery: fetchBaseQuery({
@@ -15,8 +27,11 @@ export const categoriesApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getCategories: builder.query<CategoriesResponseType[], void>({
-            query: () => "getCategories",
+        getCategories: builder.query<CategoriesResponseType[], number>({
+            query: (page) => `getCategories?page=${page}`,
+            transformResponse: (value: RespnseType<CategoriesResponseType[]>, meta) => {
+                return value.data;
+            },
         })
     }),
 });

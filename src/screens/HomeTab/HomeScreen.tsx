@@ -7,17 +7,21 @@ import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PremiumButton } from "../../components/Buttons";
 import { useGetQuestionsQuery } from "../../services/questionService";
-import { QuestionItems } from "../../components/Items";
+import { CategoryItem, QuestionItem } from "../../components/Items";
+import { FlashList } from "@shopify/flash-list";
+import { useGetCategoriesQuery } from "../../services/categoryService";
 
 export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
     const { width } = Dimensions.get("screen");
     const { data: questions, isSuccess, isError: questionError } = useGetQuestionsQuery();
-
+    const { data: categories, isLoading: categoriesLoading, isError: categoriesError  } = useGetCategoriesQuery(1);
+    
     const { colors } = useTheme();
     const insets = useSafeAreaInsets();
 
     const [search, setSearch] = useState("");
-console.log(questions);
+    const [page, setPage] = useState(1);
+
     return (
         <ScrollView style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
         
@@ -48,14 +52,23 @@ console.log(questions);
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ marginBottom: 24, paddingLeft: 24 }}
                     renderItem={({ item, index }) => (
-                        <QuestionItems {...item} />
+                        <QuestionItem {...item} />
                     )}
                 />
             </View>
 
-            <View style={{ }}>
-
-            </View>
+            {categoriesError ? null : (
+                <FlatList
+                    data={categories}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingLeft: 24, paddingRight: 13, paddingBottom: 25 }}
+                    renderItem={({ item, index }) => (
+                        <CategoryItem {...item} />
+                    )}
+                    numColumns={2}
+                />
+            )}
 
             
         </ScrollView>
