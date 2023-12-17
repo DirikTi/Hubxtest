@@ -1,6 +1,6 @@
 import { ImageBackground, Text, View, Dimensions, Image, StyleSheet, StatusBar } from "react-native";
 import { Button } from "../../components/Buttons";
-import { useTheme } from "@react-navigation/native";
+import { CommonActions, useTheme } from "@react-navigation/native";
 import Swiper from 'react-native-swiper'
 import { useRef } from "react";
 import { type RootStackScreenProps } from "../../../App";
@@ -54,7 +54,15 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
                 <View style={{ alignItems: "center" }}>
                     <Button text="Continue" onPress={() => {
                         if(index == 1) {
-                            
+                            navigation.dispatch(
+                                CommonActions.reset({
+                                    index: 1,
+                                    routes: [
+                                        { name: "Tab" },
+                                        { name: "Paywall" },
+                                    ]
+                                })
+                            )
                             return null;
                         }
                         swiper.scrollBy(index + 1, true)
