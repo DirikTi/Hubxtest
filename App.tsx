@@ -9,11 +9,13 @@ import { darkTheme, lightTheme } from './src/utils/theme';
 import TabNavigation, { type TabParamList } from './src/navigations/TabNavigation';
 import IntroScreen from './src/screens/Intro/IntroScreen';
 import StartScreen from './src/screens/Intro/StartScreen';
+import PaywallScreen from './src/screens/PaywallScreen';
 
 export type RootStackParamList = {
     Tab: NavigatorScreenParams<TabParamList>;
     Intro: undefined;
     Start: undefined;
+    Paywall: undefined;
 };
   
 export type RootStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
@@ -31,7 +33,8 @@ export default function App() {
                 barStyle={'dark-content'}
                 translucent={true}
             />
-            <RootStack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
+            <RootStack.Navigator  screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Paywall" component={PaywallScreen} />
                 <RootStack.Screen name="Start" component={StartScreen} />
                 <RootStack.Screen name="Tab" component={TabNavigation} />
                 <RootStack.Screen name="Intro" component={IntroScreen} />

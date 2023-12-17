@@ -18,6 +18,7 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
                     <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>Take a photo to</Text>
                     <View>
                         <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Bold" }}> identify </Text>
+                        <Image source={require("../../assets/images/brush.png")} style={{ width: 120 }} />
                     </View>
                 </View>
                 <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>the plant!</Text>
@@ -25,6 +26,21 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
 
             <Image style={{ width: width * 0.75, height: height * 0.85, alignSelf: "center" }}
             source={require("../../assets/images/intro_content.png")} />
+        </ImageBackground>
+    )
+
+    const SlideTwoScreen = () => (
+        <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1 }}>
+            <View style={{ marginVertical: 12, marginLeft: 24, flexDirection: "row" }}>
+                <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>Get plant</Text>
+                <View>
+                    <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Bold" }}> care guides </Text>
+                    <Image source={require("../../assets/images/brush.png")} style={{ alignSelf: "center" }} />
+                </View>
+            </View>
+
+            <Image style={{ width: width, height: 600, alignSelf: "center" }}
+            source={require("../../assets/images/intro_content_1.png")} />
         </ImageBackground>
     )
 
@@ -40,21 +56,19 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
                         }
                         swiper.scrollBy(index + 1, true)
                     }} style={{ width: width - 48 }} />
-                    
+
                     <View style={{ flexDirection: "row", alignItems :"center", marginTop: 32.5, marginBottom: 12.5 }}>
                         <Animatable.View animation={index == 0 ? "tada" : undefined} 
                             style={index == 0 ? styles.activeDot : styles.passiveDot } />
                         <Animatable.View animation={index == 1 ? "tada" : undefined} 
                             style={index == 1 ? styles.activeDot : styles.passiveDot } />
-                        <Animatable.View animation={index == 2 ? "tada" : undefined} 
-                            style={index == 2 ? styles.activeDot : styles.passiveDot } />
+                        <Animatable.View
+                            style={styles.passiveDot } />
                     </View>
                 </View>
             )}>
                 <SlideOneScreen />
-                <View style={{ backgroundColor: "transparent" }}>
-                    <Text>Beautiful</Text>
-                </View>
+                <SlideTwoScreen />
                 <View style={{ backgroundColor: "transparent" }}>
                     <Text>And simple</Text>
                 </View>
