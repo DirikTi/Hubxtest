@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootStateType } from '../store/store';
 import type { CategoryResponseType } from '../types/response';
-import categorySlice, { categorySliceActions } from '../store/reducers/categorySlice';
+import { categorySliceActions } from '../store/reducers/categorySlice';
+import { API_URL } from '../utils/utils';
 
 
 export const categoriesApi = createApi({
     reducerPath: 'categorySerivce',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://dummy-api-jtg6bessta-ey.a.run.app/',
+        baseUrl: API_URL,
         prepareHeaders: (headers, { getState }) => {
-            const token = ""; // (getState() as RootStateType).user.auth.token;
+            const token = "";
 
             if (token) {
                 headers.set('authorization', `Bearer ${token}`);

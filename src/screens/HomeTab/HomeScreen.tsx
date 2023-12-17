@@ -3,7 +3,7 @@ import { Dimensions, FlatList, ImageBackground, type NativeScrollEvent, Text, Vi
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { SearchTextInput } from "../../components/Inputs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PremiumButton } from "../../components/Buttons";
 import { useGetQuestionsQuery } from "../../services/questionService";
@@ -93,8 +93,6 @@ export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTa
                     numColumns={2}
                 />
             )}
-
-            
         </ScrollView>
     )
 }
