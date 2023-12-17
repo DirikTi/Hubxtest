@@ -6,14 +6,18 @@ import { SearchTextInput } from "../../components/Inputs";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PremiumButton } from "../../components/Buttons";
+import { useGetQuestionsQuery } from "../../services/questionService";
 
 export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
     const { width } = Dimensions.get("screen");
+    const { data: questions, isSuccess } = useGetQuestionsQuery();
 
     const { colors } = useTheme();
     const insets = useSafeAreaInsets();
 
     const [search, setSearch] = useState("");
+
+    console.log("questions", questions);
 
     return (
         <ScrollView style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
@@ -39,6 +43,8 @@ export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTa
                     color: colors.text, fontFamily: "Rubik-Regular", lineHeight: 20, letterSpacing: -0.24, fontSize: 15,
             marginBottom: 16  }}>Get Started</Text>
             </View>
+
+
             
         </ScrollView>
     )

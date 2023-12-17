@@ -10,6 +10,8 @@ import TabNavigation, { type TabParamList } from './src/navigations/TabNavigatio
 import IntroScreen from './src/screens/Intro/IntroScreen';
 import StartScreen from './src/screens/Intro/StartScreen';
 import PaywallScreen from './src/screens/PaywallScreen';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 export type RootStackParamList = {
     Tab: NavigatorScreenParams<TabParamList>;
@@ -26,22 +28,24 @@ export default function App() {
     const scheme = useColorScheme();
 
     return (
-        <NavigationContainer theme={scheme == "dark" ? darkTheme : lightTheme}>
-            <StatusBar
-                animated={true}
-                backgroundColor="transparent"
-                barStyle={'dark-content'}
-                translucent={true}
-            />
-            <RootStack.Navigator  screenOptions={{ headerShown: false }}>
-                <RootStack.Screen name="Tab" component={TabNavigation} />
-                <RootStack.Screen name="Paywall" component={PaywallScreen} />
-                <RootStack.Screen name="Start" component={StartScreen} />
-                <RootStack.Screen name="Intro" component={IntroScreen} />
-                <RootStack.Group>
-                    
-                </RootStack.Group>
-            </RootStack.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer theme={scheme == "dark" ? darkTheme : lightTheme}>
+                <StatusBar
+                    animated={true}
+                    backgroundColor="transparent"
+                    barStyle={'dark-content'}
+                    translucent={true}
+                />
+                <RootStack.Navigator  screenOptions={{ headerShown: false }}>
+                    <RootStack.Screen name="Tab" component={TabNavigation} />
+                    <RootStack.Screen name="Paywall" component={PaywallScreen} />
+                    <RootStack.Screen name="Start" component={StartScreen} />
+                    <RootStack.Screen name="Intro" component={IntroScreen} />
+                    <RootStack.Group>
+                        
+                    </RootStack.Group>
+                </RootStack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }
