@@ -1,18 +1,20 @@
-import { ImageBackground, Text, View, SafeAreaView, Dimensions, Image, StyleSheet, StatusBar } from "react-native";
+import { ImageBackground, Text, View, Dimensions, Image, StyleSheet, StatusBar } from "react-native";
 import { Button } from "../../components/Buttons";
 import { useTheme } from "@react-navigation/native";
 import Swiper from 'react-native-swiper'
 import { useRef } from "react";
 import { type RootStackScreenProps } from "../../../App";
 import * as Animatable from 'react-native-animatable';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro">) {
     const { width, height } = Dimensions.get("screen");
     const { colors } = useTheme();
     const swiperRef = useRef(null);
+    const insets = useSafeAreaInsets();
 
     const SlideOneScreen = () => (
-        <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1 }}>
+        <ImageBackground source={require("../../assets/images/intro_screen.png")} style={{ flex: 1, paddingTop: insets.top }}>
             <View style={{ marginVertical: 12, marginLeft: 24 }}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ ...styles.title, color: colors.text, fontFamily: "Rubik-Regular" }}>Take a photo to</Text>
@@ -45,9 +47,10 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
     )
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }} >
+        <View style={{ flex: 1, backgroundColor: "#fff" }} >
             <StatusBar translucent={false} />
-            <Swiper style={{ }} loop={false} ref={swiperRef} renderPagination={(index, total, swiper) => (
+            <Swiper style={{  }} loop={false} ref={swiperRef}
+            renderPagination={(index, total, swiper) => (
                 <View style={{ alignItems: "center" }}>
                     <Button text="Continue" onPress={() => {
                         if(index == 1) {
@@ -57,7 +60,7 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
                         swiper.scrollBy(index + 1, true)
                     }} style={{ width: width - 48 }} />
 
-                    <View style={{ flexDirection: "row", alignItems :"center", marginTop: 32.5, marginBottom: 12.5 }}>
+                    <View style={{ flexDirection: "row", alignItems :"center", marginTop: 32.5, marginBottom: 12.5 + insets.bottom }}>
                         <Animatable.View animation={index == 0 ? "tada" : undefined} 
                             style={index == 0 ? styles.activeDot : styles.passiveDot } />
                         <Animatable.View animation={index == 1 ? "tada" : undefined} 
@@ -74,7 +77,7 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<"Intro"
                 </View>
             </Swiper>
             
-        </SafeAreaView>
+        </View>
     )
 }
 
