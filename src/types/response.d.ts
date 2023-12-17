@@ -7,7 +7,7 @@ export type QuestionResponseType = {
     order: number
 }
 
-export type CategoriesResponseType = {
+export type CategoryType = {
     id: number;
     name: string;
     createdAt: string;
@@ -35,3 +35,15 @@ export type CategoriesResponseType = {
         updatedAt: string;
     };
 };
+
+export type CategoryResponseType = {
+    data: CategoryType[],
+    meta: {
+        pagination: {
+            page: number,
+            pageSize: number,
+            pageCount: number,
+            total: number
+        }
+    }
+}

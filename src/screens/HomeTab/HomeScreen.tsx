@@ -1,34 +1,53 @@
 import { type TabScreenProps } from "../../navigations/TabNavigation";
-import { Dimensions, FlatList, ImageBackground, Text, View } from "react-native";
+import { Dimensions, FlatList, ImageBackground, type NativeScrollEvent, Text, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { ScrollView } from "react-native";
 import { SearchTextInput } from "../../components/Inputs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PremiumButton } from "../../components/Buttons";
 import { useGetQuestionsQuery } from "../../services/questionService";
 import { CategoryItem, QuestionItem } from "../../components/Items";
 import { FlashList } from "@shopify/flash-list";
-import { useGetCategoriesQuery } from "../../services/categoryService";
+import categoriesApi, { useGetCategoriesQuery } from "../../services/categoryService";
 import { ScreenProgress } from "../../components/Progress";
+import { useSelector } from "react-redux";
+import { RootStateType, useAppDispatch } from "../../store/store";
+import { CategoryType } from "../../types/response";
 
 export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTab">) {
     const { width } = Dimensions.get("screen");
+    const appDispatch = useAppDispatch();
     const { colors } = useTheme();
     const insets = useSafeAreaInsets();
 
     const { data: questions, isLoading: questionLoading, isError: questionError } = useGetQuestionsQuery();
-    const { data: categories, isLoading: categoriesLoading, isError: categoriesError  } = useGetCategoriesQuery(1);
+    const { isLoading: categoriesLoading, isError: categoriesError  } = useGetCategoriesQuery(1);
+
+    const categoryItems = useSelector<RootStateType, CategoryType[]>(state => state.category.items);
+    const pageCount = useSelector<RootStateType, number>(state => state.category.pageCount);
+    const page = useSelector<RootStateType, number>(state => state.category.page);
     
     const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
+
+    async function handleScroll({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent) {
+
+        const paddingToBottom = 10;
+        const isEndReached = layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+        
+        if (isEndReached && page < pageCount) {
+            const promise = appDispatch(categoriesApi.endpoints.getCategories.initiate(page + 1));
+            await promise;
+        }
+    }
 
     if(questionLoading || categoriesLoading) {
         return <ScreenProgress />
     }
 
     return (
-        <ScrollView style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
+        <ScrollView onScroll={({ nativeEvent }) => handleScroll(nativeEvent)} scrollEventThrottle={150}
+        style={{ backgroundColor: "#FBFAFA", flex: 1 }}>
         
             <ImageBackground source={require("../../assets/images/main_header.png")} style={{  }}>
                 <View style={{ marginTop: 3 + insets.top, marginLeft: 24, marginBottom: 14 }}>
@@ -64,7 +83,7 @@ export default function HomeScreen({ navigation, route }: TabScreenProps<"HomeTa
 
             {categoriesError ? null : (
                 <FlatList
-                    data={categories}
+                    data={categoryItems}
                     keyExtractor={(item, index) => index.toString()}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingLeft: 24, paddingRight: 13, paddingBottom: 25 }}

@@ -3,7 +3,7 @@ import { RootStateType } from '../store/store';
 import type { QuestionResponseType } from '../types/response';
 
 export const questionApi = createApi({
-    reducerPath: 'questions',
+    reducerPath: 'questionSerivce',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://dummy-api-jtg6bessta-ey.a.run.app/',
         prepareHeaders: (headers, { getState }) => {

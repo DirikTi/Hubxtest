@@ -1,21 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootStateType } from '../store/store';
-import type { CategoriesResponseType } from '../types/response';
+import type { CategoryResponseType } from '../types/response';
+import categorySlice, { categorySliceActions } from '../store/reducers/categorySlice';
 
-type RespnseType<T> = {
-    data: T,
-    meta: {
-        pagination: {
-            page: number,
-            pageSize: number,
-            pageCount: number,
-            total: number
-        }
-    }
-}
 
 export const categoriesApi = createApi({
-    reducerPath: 'categories',
+    reducerPath: 'categorySerivce',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://dummy-api-jtg6bessta-ey.a.run.app/',
         prepareHeaders: (headers, { getState }) => {
@@ -27,13 +17,25 @@ export const categoriesApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getCategories: builder.query<CategoriesResponseType[], number>({
+        getCategories: builder.query<CategoryResponseType, number>({
             query: (page) => `getCategories?page=${page}`,
-            transformResponse: (value: RespnseType<CategoriesResponseType[]>, meta) => {
-                return value.data;
+            async onQueryStarted(page, { dispatch, queryFulfilled }) {
+                const { data } = await queryFulfilled; 
+                dispatch(categorySliceActions.addData(data.data));
+                
+                if(page != 1) {
+                    dispatch(categorySliceActions.setPagination({ 
+                        pageCount: data.meta.pagination.pageCount,
+                        total: data.meta.pagination.total
+                    }));
+                }
             },
+            transformResponse: (value: CategoryResponseType, meta) => {
+                return value;
+            }
         })
     }),
 });
 
 export const { useGetCategoriesQuery } = categoriesApi;
+export default categoriesApi;
